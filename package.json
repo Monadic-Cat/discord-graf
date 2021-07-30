@@ -16,7 +16,8 @@
 		"bot"
 	],
 	"scripts": {
-		"build": "gulp"
+		"build": "gulp",
+		"prepare": "gulp"
 	},
 	"main": "lib/index",
 	"dependencies": {
