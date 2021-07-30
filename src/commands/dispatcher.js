@@ -81,10 +81,10 @@ export default class CommandDispatcher extends EventEmitter {
 		if(result) {
 			// Make sure the bot has permission to send a message
 			let hasPermission = true;
-			if(message.guild && !message.channel.permissionsFor(this.bot.client.user).hasPermission('SEND_MESSAGES')) {
+			if(message.guild && !message.channel.permissionsFor(this.bot.client.user).has('SEND_MESSAGES')) {
 				hasPermission = false;
 				if((result.plain || result.reply) && !result.direct && !(oldResult && (oldResult.plain || oldResult.reply || oldResult.direct))) {
-					await message.author.sendMessage(`I don't have permission to send messages in ${message.channel}, so I'll respond directly instead:`);
+					await message.author.send(`I don't have permission to send messages in ${message.channel}, so I'll respond directly instead:`);
 				}
 			}
 
@@ -203,9 +203,9 @@ export default class CommandDispatcher extends EventEmitter {
 	async sendMessages(message, contents, type) {
 		const sentMessages = [];
 		for(const content of contents) {
-			if(type === 'plain') sentMessages.push(await message.channel.sendMessage(content));
+			if(type === 'plain') sentMessages.push(await message.channel.send(content));
 			else if(type === 'reply') sentMessages.push(await message.reply(content));
-			else if(type === 'direct') sentMessages.push(await message.author.sendMessage(content));
+			else if(type === 'direct') sentMessages.push(await message.author.send(content));
 		}
 		return sentMessages;
 	}
